@@ -1,0 +1,84 @@
+package com.rpg.system.domain;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+public class RpgClass implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
+	private String name;
+	private Integer baseLevel;
+	private RpgAttributes baseAttributes;
+	private RpgEquipment startingEquipment;
+	
+	public RpgClass() {
+	}
+
+	public RpgClass(Long id, String name, Integer baseLevel, RpgAttributes baseAttributes,
+			RpgEquipment startingEquipment) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.baseLevel = baseLevel;
+		this.baseAttributes = baseAttributes;
+		this.startingEquipment = startingEquipment;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getBaseLevel() {
+		return baseLevel;
+	}
+
+	public void setBaseLevel(Integer baseLevel) {
+		this.baseLevel = baseLevel;
+	}
+
+	public RpgAttributes getBaseAttributes() {
+		return baseAttributes;
+	}
+
+	public void setBaseAttributes(RpgAttributes baseAttributes) {
+		this.baseAttributes = baseAttributes;
+	}
+
+	public RpgEquipment getStartingEquipment() {
+		return startingEquipment;
+	}
+
+	public void setStartingEquipment(RpgEquipment startingEquipment) {
+		this.startingEquipment = startingEquipment;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RpgClass other = (RpgClass) obj;
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
+	}
+}
