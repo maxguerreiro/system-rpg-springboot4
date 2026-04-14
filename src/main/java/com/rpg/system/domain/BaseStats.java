@@ -2,6 +2,9 @@ package com.rpg.system.domain;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class BaseStats implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
