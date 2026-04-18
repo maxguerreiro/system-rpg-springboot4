@@ -13,6 +13,14 @@ public class BaseStats implements Serializable {
 	private Integer stamina;
 	private Integer equipLoad;
 	
+	public BaseStats(Integer hp, Integer fp, Integer stamina, Integer equipLoad) {
+		super();
+		this.hp = hp;
+		this.fp = fp;
+		this.stamina = stamina;
+		this.equipLoad = equipLoad;
+	}
+
 	public BaseStats() {
 	}
 

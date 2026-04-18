@@ -8,10 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Character")
+@Table(name = "tb_character")
 public class RpgCharacter implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -21,7 +24,10 @@ public class RpgCharacter implements Serializable {
 	private String name;
 	private Integer level;
 	private Integer runesHeld;
-	private Integer classId;
+	
+	@ManyToOne
+	@JoinColumn(name = "class_id")
+	private RpgClass rpgClass;
 	
 	@Embedded
 	private BaseStats baseStats;
@@ -29,19 +35,41 @@ public class RpgCharacter implements Serializable {
 	@Embedded
 	private RpgAttributes attributes;
 	
+	@OneToOne
+	@JoinColumn(name = "equipment_id")
 	private RpgEquipment equipment;
 	
+	@OneToOne
+	@JoinColumn(name = "armor_set_id")
+	private ArmorSet armorSet;
+	
+	public RpgClass getRpgClass() {
+		return rpgClass;
+	}
+
+	public void setRpgClass(RpgClass rpgClass) {
+		this.rpgClass = rpgClass;
+	}
+
+	public ArmorSet getArmorSet() {
+		return armorSet;
+	}
+
+	public void setArmorSet(ArmorSet armorSet) {
+		this.armorSet = armorSet;
+	}
+
 	public RpgCharacter() {
 	}
 
-	public RpgCharacter(Long id, String name, Integer level, Integer runesHeld, Integer classId, BaseStats baseStats, RpgAttributes attributes,
+	public RpgCharacter(Long id, String name, Integer level, Integer runesHeld, RpgClass rpgClass, BaseStats baseStats, RpgAttributes attributes,
 			RpgEquipment equipment) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.level = level;
 		this.runesHeld = runesHeld;
-		this.classId = classId;
+		this.rpgClass = rpgClass;
 		this.attributes = attributes;
 		this.equipment = equipment;
 	}
@@ -78,12 +106,12 @@ public class RpgCharacter implements Serializable {
 		this.runesHeld = runesHeld;
 	}
 
-	public Integer getClassId() {
-		return classId;
+	public RpgClass rpgClass() {
+		return rpgClass;
 	}
 
-	public void setClassId(Integer classId) {
-		this.classId = classId;
+	public void setClassId(RpgClass rpgClass) {
+		this.rpgClass = rpgClass;
 	}
 
 	public BaseStats getBaseStats() {

@@ -3,14 +3,32 @@ package com.rpg.system.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_weapon")
 public class Weapon implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private Integer baseDamage;
 	private String scaling;
-	
+
+	public Weapon(Long id, String name, Integer baseDamage, String scaling) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.baseDamage = baseDamage;
+		this.scaling = scaling;
+	}
+
 	public Weapon() {
 		
 	}

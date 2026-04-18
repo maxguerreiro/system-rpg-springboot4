@@ -3,15 +3,41 @@ package com.rpg.system.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_equipment")
 public class RpgEquipment implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@OneToOne
+	@JoinColumn(name = "weapon_right_1_id")
 	private Weapon weaponRight1;
+	
+	@OneToOne
+	@JoinColumn(name = "weapon_right_2_id")
 	private Weapon weaponRight2;
+	
+	@OneToOne
+	@JoinColumn(name = "weapon_left_1_id")
 	private Weapon weaponLeft1;
+	
+	@OneToOne
+	@JoinColumn(name = "weapon_left_2_id")
 	private Weapon weaponLeft2;
 	
+	@OneToOne
+	@JoinColumn(name = "Armor_set_id")
 	private ArmorSet armorSet;
 	
 	public RpgEquipment() {
