@@ -55,4 +55,11 @@ public class BaseStats implements Serializable {
 	public void setEquipLoad(Integer equipLoad) {
 		this.equipLoad = equipLoad;
 	}
+
+	@Override
+	public String toString() {
+		return "BaseStats [hp=" + hp + ", fp=" + fp + ", stamina=" + stamina + ", equipLoad=" + equipLoad + "]";
+	}
+	
+	
 }

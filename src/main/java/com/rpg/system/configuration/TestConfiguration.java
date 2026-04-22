@@ -68,8 +68,6 @@ public class TestConfiguration implements CommandLineRunner {
 		eq.setWeaponLeft1(sword);
 		eq.setArmorSet(mageSet);
 
-		equipmentRepo.save(eq);
-
 		// ❤️ Base Stats
 		BaseStats stats = new BaseStats(500, 100, 80, 40);
 

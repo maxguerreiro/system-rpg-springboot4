@@ -3,6 +3,7 @@ package com.rpg.system.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,13 +36,29 @@ public class RpgCharacter implements Serializable {
 	@Embedded
 	private RpgAttributes attributes;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "equipment_id")
 	private RpgEquipment equipment;
 	
 	@OneToOne
 	@JoinColumn(name = "armor_set_id")
 	private ArmorSet armorSet;
+	
+	public RpgCharacter() {
+	}
+	
+	public RpgCharacter(Long id, String name, Integer level, Integer runesHeld, RpgClass rpgClass, BaseStats baseStats, RpgAttributes attributes,
+			RpgEquipment equipment) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.level = level;
+		this.runesHeld = runesHeld;
+		this.rpgClass = rpgClass;
+		this.baseStats = baseStats;
+		this.attributes = attributes;
+		this.equipment = equipment;
+	}
 	
 	public RpgClass getRpgClass() {
 		return rpgClass;
@@ -57,21 +74,6 @@ public class RpgCharacter implements Serializable {
 
 	public void setArmorSet(ArmorSet armorSet) {
 		this.armorSet = armorSet;
-	}
-
-	public RpgCharacter() {
-	}
-
-	public RpgCharacter(Long id, String name, Integer level, Integer runesHeld, RpgClass rpgClass, BaseStats baseStats, RpgAttributes attributes,
-			RpgEquipment equipment) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.level = level;
-		this.runesHeld = runesHeld;
-		this.rpgClass = rpgClass;
-		this.attributes = attributes;
-		this.equipment = equipment;
 	}
 
 	public Long getId() {
