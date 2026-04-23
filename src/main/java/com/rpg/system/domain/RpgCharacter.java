@@ -157,5 +157,14 @@ public class RpgCharacter implements Serializable {
 		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 
+	@Override
+	public String toString() {
+		return "RpgCharacter [name=" + name + ", level=" + level + ", runesHeld=" + runesHeld + ", rpgClass=" + rpgClass
+				+ ", baseStats=" + baseStats + ", attributes=" + attributes + ", equipment=" + equipment + ", armorSet="
+				+ armorSet + "]";
+	}
+	
+	
+
 
 }

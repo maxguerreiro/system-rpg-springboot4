@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rpg.system.domain.RpgCharacter;
+import com.rpg.system.domain.dtos.CharacterStatusDTO;
+import com.rpg.system.domain.dtos.LevelUpDTO;
 import com.rpg.system.domain.dtos.RpgCharacterDto;
+import com.rpg.system.enuns.AttributeType;
 import com.rpg.system.services.RpgCharacterService;
+import com.rpg.system.services.StatusService;
 
 @RestController
 @RequestMapping(value = "characters")
@@ -22,6 +26,9 @@ public class RpgCharacterResource {
 
 	@Autowired
 	private RpgCharacterService service;
+	
+	@Autowired
+	private StatusService statusService;
 	
 	//Find all characters
 	@GetMapping
@@ -43,8 +50,24 @@ public class RpgCharacterResource {
 		return ResponseEntity.ok().body(character);
 	}
 	
-	//update
+	//update level
 	
+	@PostMapping("/{id}/level-up")
+	public ResponseEntity<RpgCharacter> levelUp(@PathVariable Long id, @RequestBody LevelUpDTO dto) {
+		
+		AttributeType type = AttributeType.valueOf(dto.getAttribute().toUpperCase());
+		
+		RpgCharacter character = service.levelUp(id, type);
+		
+		return ResponseEntity.ok(character);
+	}
+	
+	//get Status
+	@GetMapping(value = "/{id}/status")
+	public ResponseEntity<CharacterStatusDTO> getStatus(@PathVariable Long id) {
+		CharacterStatusDTO dto = statusService.getStatus(id);
+		return ResponseEntity.ok().body(dto);
+	}
 	
 	
 	//attributes points (per rpg class)
