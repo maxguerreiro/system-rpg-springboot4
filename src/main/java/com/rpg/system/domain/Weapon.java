@@ -3,6 +3,7 @@ package com.rpg.system.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,9 +20,11 @@ public class Weapon implements Serializable{
 	private Long id;
 	private String name;
 	private Integer baseDamage;
-	private String scaling;
+	
+	@Embedded
+	private WeaponScaling scaling;
 
-	public Weapon(Long id, String name, Integer baseDamage, String scaling) {
+	public Weapon(Long id, String name, Integer baseDamage, WeaponScaling scaling) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -57,11 +60,11 @@ public class Weapon implements Serializable{
 		this.baseDamage = baseDamage;
 	}
 
-	public String getScaling() {
+	public WeaponScaling getScaling() {
 		return scaling;
 	}
 
-	public void setScaling(String scaling) {
+	public void setScaling(WeaponScaling scaling) {
 		this.scaling = scaling;
 	}
 

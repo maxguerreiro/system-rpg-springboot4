@@ -8,6 +8,7 @@ import com.rpg.system.domain.RpgAttributes;
 import com.rpg.system.domain.RpgCharacter;
 import com.rpg.system.domain.RpgEquipment;
 import com.rpg.system.domain.Weapon;
+import com.rpg.system.domain.WeaponScaling;
 import com.rpg.system.domain.dtos.CharacterStatusDTO;
 import com.rpg.system.repositories.RpgCharacterRepository;
 
@@ -65,23 +66,18 @@ public class StatusService {
 		if(weapon == null) return 0;
 		
 		int base = weapon.getBaseDamage();
-		String scaling = weapon.getScaling();
+		
+		WeaponScaling scaling = weapon.getScaling();
 		
 		int bonus = 0;
 		
-		if (scaling.contains("STR")) {
-			bonus += attr.getStrength() * 2;
-		}
-		if (scaling.contains("DEX")) {
-			bonus += attr.getDexterity() * 2;
-		}
-		if (scaling.contains("INT")) {
-			bonus += attr.getIntelligence() * 2;
-		}
-		if (scaling.contains("FAITH")) {
-			bonus += attr.getFaith() * 2;
-		}
-		return base + bonus;
+		bonus += attr.getStrength() * scaling.getStrength().getMultiplier();
+		bonus += attr.getDexterity() * scaling.getDexterity().getMultiplier();
+		bonus += attr.getIntelligence() * scaling.getIntelligence().getMultiplier();
+		bonus += attr.getFaith() * scaling.getFaith().getMultiplier();
+		bonus += attr.getArcane() * scaling.getArcane().getMultiplier();
+		
+		return (int) (base + bonus * 10);
 	}
 	
 	private void calculateEquipLoad(CharacterStatusDTO dto, RpgEquipment eq, RpgAttributes attr) {

@@ -14,6 +14,8 @@ import com.rpg.system.domain.RpgCharacter;
 import com.rpg.system.domain.RpgClass;
 import com.rpg.system.domain.RpgEquipment;
 import com.rpg.system.domain.Weapon;
+import com.rpg.system.domain.WeaponScaling;
+import com.rpg.system.enuns.ScalingGrade;
 import com.rpg.system.repositories.ArmorSetRepository;
 import com.rpg.system.repositories.RpgCharacterRepository;
 import com.rpg.system.repositories.RpgClassRepository;
@@ -42,9 +44,23 @@ public class TestConfiguration implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		WeaponScaling staffScaling = new WeaponScaling();
+		staffScaling.setStrength(ScalingGrade.E);
+		staffScaling.setDexterity(ScalingGrade.D);
+		staffScaling.setIntelligence(ScalingGrade.S);
+		staffScaling.setFaith(ScalingGrade.C);
+		staffScaling.setArcane(ScalingGrade.NONE);
+		
+		WeaponScaling shortSwordScaling = new WeaponScaling();
+		shortSwordScaling.setStrength(ScalingGrade.B);
+		shortSwordScaling.setDexterity(ScalingGrade.C);
+		shortSwordScaling.setIntelligence(ScalingGrade.NONE);
+		shortSwordScaling.setFaith(ScalingGrade.NONE);
+		shortSwordScaling.setArcane(ScalingGrade.NONE);
+		
 		// 🗡️ Weapons
-		Weapon staff = new Weapon(null, "Astrologer Staff", 30, "INT");
-		Weapon sword = new Weapon(null, "Short Sword", 50, "STR/DEX");
+		Weapon staff = new Weapon(null, "Astrologer Staff", 30, staffScaling);
+		Weapon sword = new Weapon(null, "Short Sword", 50, shortSwordScaling);
 
 		weaponRepo.saveAll(Arrays.asList(staff, sword));
 

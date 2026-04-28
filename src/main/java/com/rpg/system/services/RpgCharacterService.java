@@ -39,11 +39,11 @@ public class RpgCharacterService {
 	
 	public RpgCharacter createCharacter(RpgCharacterDto dto) {
 		
-		// 🔍 1. Buscar classe
+		// 1. Buscar classe
 		RpgClass rpgClass = classRepo.findById(dto.getClassId())
 				.orElseThrow(() -> new RuntimeException("Class not Found"));
 		
-		// 🧬 2. Clonar atributos
+		// 2. Clonar atributos
 		RpgAttributes baseAttr = rpgClass.getBaseAttributes();
 		
 		RpgAttributes attributes = new RpgAttributes(
@@ -56,7 +56,7 @@ public class RpgCharacterService {
 				baseAttr.getFaith(), 
 				baseAttr.getArcane());
 		
-		// ⚔️ 3. Criar equipamento inicial
+		// 3. Criar equipamento inicial
 		
 		RpgEquipment equipment = new RpgEquipment();
 		
@@ -67,7 +67,7 @@ public class RpgCharacterService {
 			equipment.setArmorSet(startEq.getArmorSet());
 		}
 		
-		// ❤️ 4. Base stats iniciais
+		// 4. Base stats iniciais
 		BaseStats baseStats = new BaseStats(
 				//hp
 				attributes.getVigor() * 30,
@@ -79,13 +79,10 @@ public class RpgCharacterService {
                 attributes.getEndurance() * 3
                 );
 		
-		// 🧍 5. Criar personagem
+		// 5. Criar personagem
 		RpgCharacter character = new RpgCharacter(null, dto.getName(), rpgClass.getBaseLevel(), 0, rpgClass, baseStats, attributes, equipment);
 		
-		System.out.println("Stats " + baseStats);
-		System.out.println("Stats character" + character.getBaseStats());
-		
-		// 💾 6. Salvar (cascade salva equipment)
+		// 6. Salvar (cascade salva equipment)
 		return characterRepo.save(character);
 	}
 	
@@ -101,26 +98,23 @@ public class RpgCharacterService {
 		int level = character.getLevel();
 		int cost = 100 + (level * level * 20);
 		
-		System.out.println("############################" + character.getRunesHeld());
-		System.out.println("############################" + cost);
-		
 		if (character.getRunesHeld() < cost) {
 			throw new RuntimeException("Not enough runes");
 		}
 		
-		// 🧬 aumenta atributo
+		// aumenta atributo
 		
 		increaseAttribute(character.getAttributes(), attributeType);
 		
-		// 📈 sobe level
+		// sobe level
 		
 		character.setLevel(character.getLevel()+1);
 		
-		// 💰 desconta runas
+		// desconta runas
 
 		character.setRunesHeld(character.getRunesHeld() - cost);
 		
-		// ❤️ recalcula status
+		// recalcula status
 		
 		recalculateStats(character);
 		
