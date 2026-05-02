@@ -14,6 +14,7 @@ import com.rpg.system.domain.RpgCharacter;
 import com.rpg.system.domain.RpgClass;
 import com.rpg.system.domain.RpgEquipment;
 import com.rpg.system.domain.Weapon;
+import com.rpg.system.domain.WeaponRequirement;
 import com.rpg.system.domain.WeaponScaling;
 import com.rpg.system.enuns.ScalingGrade;
 import com.rpg.system.repositories.ArmorSetRepository;
@@ -61,8 +62,14 @@ public class TestConfiguration implements CommandLineRunner {
 		// 🗡️ Weapons
 		Weapon staff = new Weapon(null, "Astrologer Staff", 30, staffScaling);
 		Weapon sword = new Weapon(null, "Short Sword", 50, shortSwordScaling);
+		
+		// Weapon requeriments
+		WeaponRequirement req = new WeaponRequirement(10, 8, 18, 0, 0);
 
-		weaponRepo.saveAll(Arrays.asList(staff, sword));
+		Weapon staffRequeriments = new Weapon(null, "Astrologer Staff", 30, staffScaling);
+		staff.setRequirements(req);
+
+		weaponRepo.saveAll(Arrays.asList(staff, sword, staffRequeriments));
 
 		// 🛡️ Armor Sets
 		ArmorSet mageSet = new ArmorSet(null, "Astrologer Set", 40, 60, 50, 45, 55, 10);

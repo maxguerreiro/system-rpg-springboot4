@@ -15,14 +15,22 @@ import jakarta.persistence.Table;
 public class Weapon implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	private static final int MAX_LEVEL = 25;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private Integer baseDamage;
 	
+	private Integer upgradeLevel;
+	
+	
 	@Embedded
 	private WeaponScaling scaling;
+	
+	@Embedded
+	private WeaponRequirement requirement;
 
 	public Weapon(Long id, String name, Integer baseDamage, WeaponScaling scaling) {
 		super();
@@ -67,6 +75,26 @@ public class Weapon implements Serializable{
 	public void setScaling(WeaponScaling scaling) {
 		this.scaling = scaling;
 	}
+	
+	public void setRequirements(WeaponRequirement requirement) {
+		this.requirement = requirement;
+	}
+	
+	public WeaponRequirement getRequirements() {
+		return requirement;
+	}
+	
+	public Integer getUpgradeLevel() {
+		return upgradeLevel;
+	}
+
+	public void setUpgradeLevel(Integer upgradeLevel) {
+		this.upgradeLevel = upgradeLevel;
+	}
+	
+	public static int getMaxLevel() {
+		return MAX_LEVEL;
+	}
 
 	@Override
 	public int hashCode() {
@@ -84,7 +112,5 @@ public class Weapon implements Serializable{
 		Weapon other = (Weapon) obj;
 		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
-	
-	
 
 }

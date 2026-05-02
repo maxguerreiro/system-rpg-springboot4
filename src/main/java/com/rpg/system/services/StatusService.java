@@ -66,6 +66,9 @@ public class StatusService {
 		if(weapon == null) return 0;
 		
 		int base = weapon.getBaseDamage();
+		int upgrade = weapon.getUpgradeLevel() != null ? weapon.getUpgradeLevel() : 0;
+		
+		int upgradedBase = base + (upgrade *10);
 		
 		WeaponScaling scaling = weapon.getScaling();
 		
@@ -77,7 +80,7 @@ public class StatusService {
 		bonus += attr.getFaith() * scaling.getFaith().getMultiplier();
 		bonus += attr.getArcane() * scaling.getArcane().getMultiplier();
 		
-		return (int) (base + bonus * 10);
+		return (int) (upgradedBase + bonus * 10);
 	}
 	
 	private void calculateEquipLoad(CharacterStatusDTO dto, RpgEquipment eq, RpgAttributes attr) {

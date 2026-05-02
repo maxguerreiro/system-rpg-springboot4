@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rpg.system.domain.RpgCharacter;
@@ -16,6 +17,7 @@ import com.rpg.system.domain.dtos.CharacterStatusDTO;
 import com.rpg.system.domain.dtos.LevelUpDTO;
 import com.rpg.system.domain.dtos.RpgCharacterDto;
 import com.rpg.system.enuns.AttributeType;
+import com.rpg.system.services.EquipmentService;
 import com.rpg.system.services.RpgCharacterService;
 import com.rpg.system.services.StatusService;
 
@@ -29,6 +31,9 @@ public class RpgCharacterResource {
 	
 	@Autowired
 	private StatusService statusService;
+	
+	@Autowired
+	private EquipmentService equipService;
 	
 	//Find all characters
 	@GetMapping
@@ -67,6 +72,15 @@ public class RpgCharacterResource {
 	public ResponseEntity<CharacterStatusDTO> getStatus(@PathVariable Long id) {
 		CharacterStatusDTO dto = statusService.getStatus(id);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	
+	// Equipar Weapon
+	@PostMapping("/{id}/equip/right-weapon")
+	public ResponseEntity<RpgCharacter> equipRightWeapon(
+			@PathVariable Long id, 
+			@RequestParam Long weaponId) {
+		return ResponseEntity.ok(equipService.equipRightWeapon(id, weaponId));
 	}
 	
 	
