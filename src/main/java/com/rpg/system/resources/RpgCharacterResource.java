@@ -16,9 +16,11 @@ import com.rpg.system.domain.RpgCharacter;
 import com.rpg.system.domain.dtos.CharacterStatusDTO;
 import com.rpg.system.domain.dtos.LevelUpDTO;
 import com.rpg.system.domain.dtos.RpgCharacterDto;
+import com.rpg.system.domain.dtos.RunesDto;
 import com.rpg.system.enuns.AttributeType;
 import com.rpg.system.services.EquipmentService;
 import com.rpg.system.services.RpgCharacterService;
+import com.rpg.system.services.RuneService;
 import com.rpg.system.services.StatusService;
 
 @RestController
@@ -34,6 +36,9 @@ public class RpgCharacterResource {
 	
 	@Autowired
 	private EquipmentService equipService;
+	
+	@Autowired
+	private RuneService runeService;
 	
 	//Find all characters
 	@GetMapping
@@ -81,6 +86,15 @@ public class RpgCharacterResource {
 			@PathVariable Long id, 
 			@RequestParam Long weaponId) {
 		return ResponseEntity.ok(equipService.equipRightWeapon(id, weaponId));
+	}
+	
+	//add runes
+	
+	@PostMapping("/{id}/add-runes")
+	public ResponseEntity<RpgCharacter> addRunes(@PathVariable Long id, @RequestBody RunesDto dto) {
+		
+	RpgCharacter obj = runeService.addRunes(id, dto);
+	return ResponseEntity.ok().body(obj);		
 	}
 	
 	

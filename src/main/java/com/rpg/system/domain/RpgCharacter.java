@@ -139,6 +139,10 @@ public class RpgCharacter implements Serializable {
 	public void setEquipment(RpgEquipment equipment) {
 		this.equipment = equipment;
 	}
+	
+	public void addRunes(int amount) {
+		this.runesHeld += amount;
+	}
 
 	@Override
 	public int hashCode() {
