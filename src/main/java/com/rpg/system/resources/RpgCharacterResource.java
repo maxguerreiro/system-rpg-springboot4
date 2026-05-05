@@ -88,6 +88,14 @@ public class RpgCharacterResource {
 		return ResponseEntity.ok(equipService.equipRightWeapon(id, weaponId));
 	}
 	
+	// Equipar Weapon
+		@PostMapping("/{id}/equip/left-weapon")
+		public ResponseEntity<RpgCharacter> equipLeftWeapon(
+				@PathVariable Long id, 
+				@RequestParam Long weaponId) {
+			return ResponseEntity.ok(equipService.equipRightWeapon(id, weaponId));
+		}
+	
 	//add runes
 	
 	@PostMapping("/{id}/add-runes")
